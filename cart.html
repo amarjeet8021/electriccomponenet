@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      background: #f4f4f4;
+    }
+    .container {
+      display: flex;
+      gap: 40px;
+    }
+    .products, .cart {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 45%;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .product, .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+    button {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background: #218838;
+    }
+    h2 {
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Shopping Cart Example</h1>
+  <div class="container">
+    <!-- Product List -->
+    <div class="products">
+      <h2>Products</h2>
+      <div class="product">
+        <span>Product 1</span>
+        <span>₹300</span>
+        <button onclick="addToCart('Product 1', 10)">Add to Cart</button>
+      </div>
+      <div class="product">
+        <span>Product 2</span>
+        <span>₹100</span>
+        <button onclick="addToCart('Product 2', 15)">Add to Cart</button>
+      </div>
+      <div class="product">
+        <span>Product 3</span>
+        <span>₹200</span>
+        <button onclick="addToCart('Product 3', 20)">Add to Cart</button>
+      </div>
+    </div>
+
+    <!-- Cart Section -->
+    <div class="cart">
+      <h2>Your Cart</h2>
+      <div id="cart-items"></div>
+      <h3>Total: $<span id="total">0</span></h3>
+    </div>
+  </div>
+
+  <script>
+    let cart = [];
+    let total = 0;
+
+    function addToCart(name, price) {
+      cart.push({name, price});
+      total += price;
+      updateCart();
+    }
+
+    function updateCart() {
+      const cartItemsDiv = document.getElementById('cart-items');
+      cartItemsDiv.innerHTML = "";
+      cart.forEach((item, index) => {
+        cartItemsDiv.innerHTML += `
+          <div class="cart-item">
+            <span>${item.name} - $${item.price}</span>
+            <button onclick="removeFromCart(${index})">Remove</button>
+          </div>
+        `;
+      });
+      document.getElementById('total').innerText = total;
+    }
+
+    function removeFromCart(index) {
+      total -= cart[index].price;
+      cart.splice(index, 1);
+      updateCart();
+    }
+  </script>
+</body>
+</html>

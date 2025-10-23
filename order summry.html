@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Summary</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: #4e54c8;
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-weight: 600;
+            font-size: 28px;
+        }
+        
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .section {
+            margin-bottom: 25px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            color: #4e54c8;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title i {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+        
+        .address-details {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            line-height: 1.6;
+        }
+        
+        .address-details p {
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        .order-items {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .order-items th {
+            text-align: left;
+            padding: 12px 15px;
+            background: #f5f5f5;
+            color: #4e54c8;
+        }
+        
+        .order-items td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .order-items tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .order-items .total-row {
+            font-weight: bold;
+            background: #f9f9f9;
+        }
+        
+        .payment-method {
+            display: flex;
+            align-items: center;
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+        
+        .payment-method i {
+            font-size: 28px;
+            color: #4e54c8;
+            margin-right: 15px;
+        }
+        
+        .payment-details {
+            flex-grow: 1;
+        }
+        
+        .payment-details h3 {
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .payment-details p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .actions {
+            display: flex;
+            justify-content: flex-end;
+            padding: 20px 30px;
+            background: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: #4e54c8;
+            color: white;
+            margin-left: 15px;
+        }
+        
+        .btn-primary:hover {
+            background: #3a3fb8;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: #4e54c8;
+            border: 1px solid #4e54c8;
+        }
+        
+        .btn-outline:hover {
+            background: #f0f0f0;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+        
+        .status-confirmed {
+            background: #e6f7ee;
+            color: #00a65a;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Order Summary</h1>
+        </header>
+
+        <div class="content">
+            <div class="left-column">
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-map-marker-alt"></i> Delivery Address</h2>
+                    <div class="address-details">
+                        <p><strong></strong></p>
+
+                        <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-credit-card"></i> Payment Method</h2>
+                    <div class="payment-method">
+                        <i class="fab fa-cc-visa"></i>
+                        <div class="payment-details">
+                            <h3>Visa ending in 7654</h3>
+                            <p>Expires 12/2024</p>
+                            <span class="status-badge status-confirmed">Payment confirmed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button class="btn btn-outline">Back to Cart</button>
+                <button class="btn btn-primary"><a href="C:\Users\user\OneDrive\Desktop\pementgood look.html">Confirm Order</a></button>
+            </div>
+        </div>
+</body>
+
+</html>

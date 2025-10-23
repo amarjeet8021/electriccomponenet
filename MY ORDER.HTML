@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Electromart - Track Order</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .container {
+            background: #fff;
+            max-width: 480px;
+            width: 100%;
+            padding: 30px 40px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logo img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+        
+        h1 {
+            font-size: 26px;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            color: #333;
+        }
+        
+        hr {
+            border: none;
+            border-bottom: 2px solid #ff6600;
+            width: 60px;
+            margin: 12px auto 30px;
+        }
+        
+        label {
+            font-weight: 600;
+            color: #555;
+            display: block;
+            text-align: left;
+            margin-bottom: 8px;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            transition: border-color 0.3s ease;
+        }
+        
+        input[type="text"]:focus {
+            border-color: #ff6600;
+            outline: none;
+        }
+        
+        button {
+            width: 100%;
+            padding: 14px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #ff6600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-weight: 700;
+        }
+        
+        button:hover {
+            background-color: #cc5200;
+        }
+        
+        .support-info {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .support-info a {
+            color: #ff6600;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .support-info a:hover {
+            text-decoration: underline;
+        }
+        
+        #orderStatus {
+            margin-top: 18px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="C:\Users\user\OneDrive\Desktop\image.html.jpg" alt="Electromart Logo" />
+        </div>
+
+        <h1>TRACK ORDER</h1>
+        <hr />
+
+        <label for="orderId">Order ID</label>
+        <input type="text" id="orderId" placeholder="Enter your Order ID" />
+
+        <button onclick="trackOrder()">Submit</button>
+
+        <p id="orderStatus"></p>
+
+        <div class="support-info">
+            <p>Support Information</p>
+            <p>Email: <a href="mailto:support@electromart.com">support@electromart.com</a></p>
+            <p>WhatsApp: <a href="https://wa.me/1234567890" target="_blank">+1 234 567 890</a></p>
+        </div>
+    </div>
+
+    <script>
+        function trackOrder() {
+            const orderId = document.getElementById('orderId').value.trim();
+            const status = document.getElementById('orderStatus');
+
+            if (!orderId) {
+                status.style.color = 'red';
+                status.textContent = 'Please enter a valid Order ID.';
+                return;
+            }
+
+            // Placeholder for real tracking logic/API call
+            status.style.color = 'green';
+            status.textContent = Tracking Order# $ {
+                orderId
+            }—
+            Status: Processing your order.;
+        }
+    </script>
+</body>
+
+</html>

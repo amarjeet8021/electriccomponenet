@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ElectroMart — Unified Payments (Card + UPI + QR)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+         :root {
+            --bg1: #0f1226;
+            --bg2: #0a0c1a;
+            --panel: #121631;
+            --panel-2: #0d1230;
+            --text: #eef2ff;
+            --muted: #9aa4c7;
+            --ring: #3b82f680;
+            --accent: #7c3aed;
+            --accent-2: #22c55e;
+            --accent-3: #38bdf8;
+            --danger: #ef4444;
+            --ok: #22c55e;
+            --warn: #f59e0b;
+        }
+        
+        * {
+            box-sizing: border-box
+        }
+        
+        html,
+        body {
+            height: 100%
+        }
+        
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+            color: var(--text);
+            background: radial-gradient(1000px 600px at -10% -10%, #1b2357 0%, transparent 60%), radial-gradient(900px 500px at 110% 10%, #134e4a 0%, transparent 60%), linear-gradient(135deg, var(--bg1), var(--bg2));
+            background-attachment: fixed;
+        }
+        
+        .wrap {
+            max-width: 1100px;
+            margin: 32px auto;
+            padding: 16px
+        }
+        
+        .title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 18px
+        }
+        
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+        
+        .logo {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--accent), #4f46e5);
+            display: grid;
+            place-items: center;
+            box-shadow: 0 10px 30px #4f46e533
+        }
+        
+        .logo svg {
+            width: 24px;
+            height: 24px
+        }
+        
+        h1 {
+            font-size: 24px;
+            margin: 0
+        }
+        
+        .badge {
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid #ffffff22;
+            background: #ffffff12
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: 1.2fr .8fr;
+            gap: 18px
+        }
+        
+        @media (max-width: 940px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .card {
+            background: linear-gradient(180deg, #0b1028 0%, #0a0e22 100%);
+            border: 1px solid #5b6db21f;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .35)
+        }
+        
+        .card .hd {
+            padding: 18px 20px;
+            background: linear-gradient(180deg, #0f1536 0%, #0d1330 100%);
+            border-bottom: 1px solid #39416955;
+        }
+        
+        .card .bd {
+            padding: 20px
+        }
+        
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px
+        }
+        
+        .row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px
+        }
+        
+        label {
+            display: block;
+            font-weight: 600;
+            margin: 8px 0 6px;
+            color: #c6d0f8
+        }
+        
+        input,
+        select {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid #5162a833;
+            background: #0b1333;
+            color: var(--text);
+            outline: none;
+            transition: .2s
+        }
+        
+        input::placeholder {
+            color: #94a3b8
+        }
+        
+        input:focus,
+        select:focus {
+            border-color: var(--ring);
+            box-shadow: 0 0 0 6px #3b82f620
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 8px;
+            padding: 10px;
+            background: #0b1127;
+            border-bottom: 1px solid #34427455
+        }
+        
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 12px 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            border: 1px solid transparent;
+            user-select: none
+        }
+        
+        .tab[aria-selected="true"] {
+            background: linear-gradient(135deg, #1b2357, #0e1a4a);
+            border-color: #5b6db244
+        }
+        
+        .tab[aria-selected="false"] {
+            background: #0b1333;
+            color: #c7d2fe;
+            border-color: #253158
+        }
+        
+        .tab:hover {
+            transform: translateY(-1px)
+        }
+        
+        .muted {
+            color: var(--muted)
+        }
+        
+        .kv {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 6px 0
+        }
+        
+        .hr {
+            height: 1px;
+            background: #33415588;
+            margin: 12px 0
+        }
+        
+        .price {
+            font-size: 28px;
+            font-weight: 800
+        }
+        
+        .btn {
+            padding: 14px 16px;
+            border: none;
+            border-radius: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            width: 100%;
+            background: linear-gradient(90deg, var(--accent) 0%, #4f46e5 50%, var(--accent-3) 100%);
+            color: white;
+            box-shadow: 0 14px 30px #7c3aed33;
+            transition: .15s
+        }
+        
+        .btn:active {
+            transform: translateY(1px)
+        }
+        
+        .btn-secondary {
+            padding: 12px 14px;
+            border-radius: 12px;
+            background: #0b1333;
+            color: #e2e8f0;
+            border: 1px solid #31406f;
+            cursor: pointer
+        }
+        
+        .success {
+            display: none;
+            margin-top: 12px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            background: #052e1a;
+            border: 1px solid #14532d;
+            color: #86efac;
+            font-weight: 700
+        }
+        
+        .error {
+            display: none;
+            margin-top: 12px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            background: #3b0a0a;
+            border: 1px solid #7f1d1d;
+            color: #fecaca;
+            font-weight: 700
+        }
+        
+        .copy {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 10px;
+            border: 1px solid #334155aa;
+            background: #0b1333;
+            cursor: pointer;
+            font-weight: 600
+        }
+        
+        .pill {
+            display: inline-block;
+            padding: 4px 10px;
+            border: 1px solid #334155aa;
+            border-radius: 999px;
+            font-size: 12px;
+            background: #0b1333
+        }
+        /* Pretty demo card face */
+        
+        .demo-card {
+            height: 190px;
+            border-radius: 18px;
+            padding: 18px;
+            background: radial-gradient(180px 120px at 90% -10%, #ffffff33 0%, transparent 60%), conic-gradient(from 130deg at 20% 20%, #8b5cf6, #22c55e, #38bdf8, #8b5cf6);
+            filter: hue-rotate(8deg) saturate(1.1);
+            box-shadow: inset 0 0 0 300px #0b133355;
+            position: relative;
+            border: 1px solid #a5b4fc44;
+        }
+        
+        .demo-card .chip {
+            width: 34px;
+            height: 24px;
+            background: #facc15;
+            border-radius: 6px;
+            box-shadow: inset 0 0 0 4px #00000033
+        }
+        
+        .demo-card .num {
+            letter-spacing: 2px;
+            font-weight: 800;
+            font-size: 18px
+        }
+        
+        .demo-card .meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            font-weight: 700
+        }
+        
+        .qr-wrap {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap
+        }
+        
+        .qr-box {
+            width: 180px;
+            height: 180px;
+            display: grid;
+            place-items: center;
+            background: #0b1333;
+            border: 1px dashed #334155aa;
+            border-radius: 12px
+        }
+        
+        .foot-note {
+            font-size: 12px;
+            color: #cbd5e1;
+            text-align: center;
+            margin-top: 10px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="title">
+            <div class="brand">
+                <div class="logo" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5v14" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+                </div>
+                <div>
+                    <h1>ElectroMart — Checkout</h1>
+                    <div class="muted">Card • UPI ID • UPI QR • Phone Number</div>
+                </div>
+            </div>
+            <span class="badge">welcome </span>
+        </div>
+
+        <div class="grid">
+            <!-- Left column: payment methods -->
+            <div class="card" role="region" aria-labelledby="payMethods">
+                <div class="tabs" role="tablist" aria-label="Payment methods">
+                    <button class="tab" id="tab-card" role="tab" aria-selected="true" aria-controls="panel-card">Card</button>
+                    <button class="tab" id="tab-upi" role="tab" aria-selected="false" aria-controls="panel-upi">UPI ID</button>
+                    <button class="tab" id="tab-qr" role="tab" aria-selected="false" aria-controls="panel-qr">UPI QR</button>
+                    <button class="tab" id="tab-phone" role="tab" aria-selected="false" aria-controls="panel-phone">Phone Number</button>
+                </div>
+
+                <!-- CARD PANEL -->
+                <section class="bd" id="panel-card" role="tabpanel" aria-labelledby="tab-card">
+                    <div class="row">
+                        <div>
+                            <label for="cardName">Cardholder Name</label>
+                            <input id="cardName" placeholder="John Doe" autocomplete="cc-name" />
+                        </div>
+                        <div>
+                            <label for="cardEmail">Email (for receipt)</label>
+                            <input id="cardEmail" type="email" placeholder="john@example.com" />
+                        </div>
+                    </div>
+
+                    <div class="demo-card" style="margin:14px 0">
+                        <div class="chip"></div>
+                        <div style="height:12px"></div>
+                        <div class="num" id="visCardNum">•••• •••• •••• ••••</div>
+                        <div style="height:16px"></div>
+                        <div class="meta">
+                            <div>EXP <span id="visExp">MM/YY</span></div>
+                            <div>CVV <span id="visCvv">•••</span></div>
+                        </div>
+                    </div>
+
+                    <label for="cardNumber">Card Number</label>
+                    <input id="cardNumber" inputmode="numeric" autocomplete="cc-number" placeholder="1234 5678 9012 3456" maxlength="19" />
+
+                    <div class="row">
+                        <div>
+                            <label for="cardExp">Expiry (MM/YY)</label>
+                            <input id="cardExp" inputmode="numeric" placeholder="MM/YY" maxlength="5" autocomplete="cc-exp" />
+                        </div>
+                        <div>
+                            <label for="cardCvv">CVV</label>
+                            <input id="cardCvv" inputmode="numeric" placeholder="123" maxlength="4" autocomplete="cc-csc" />
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top:12px">
+                        <div>
+                            <label for="cardAmount">Amount (₹)</label>
+                            <input id="cardAmount" type="number" min="1" value="999" />
+                        </div>
+                        <div>
+                            <label>&nbsp;</label>
+                            <button class="btn" id="payCard">Pay with Card (Demo)</button>
+                        </div>
+                    </div>
+
+                    <div class="success" id="cardSuccess">✔ Payment successful (simulated). Replace with your gateway (e.g., Razorpay/Stripe) to charge the card.</div>
+                    <div class="error" id="cardError">✖ Please check card details and try again.</div>
+                </section>
+
+                <!-- UPI ID PANEL -->
+                <section class="bd" id="panel-upi" role="tabpanel" aria-labelledby="tab-upi" hidden>
+                    <div class="row">
+                        <div>
+                            <label for="upiId">Your UPI ID (VPA)</label>
+                            <input id="upiId" placeholder="epawansinghofficialsong-8@okaxis" />
+                        </div>
+                        <div>
+                            <label for="upiAmount">Amount (₹)</label>
+                            <input id="upiAmount" type="number" min="1" value="499" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div>
+                            <label for="upiNote">Note</label>
+                            <input id="upiNote" placeholder="Order #EM-1024" />
+                        </div>
+                        <div style="display:flex; align-items:flex-end">
+                            <button class="btn" id="genUpiLink">Generate UPI Link</button>
+                        </div>
+                    </div>
+                    <div class="hr"></div>
+                    <div id="upiResult" style="display:none">
+                        <div class="kv"><span class="muted">UPI Intent Link</span> <button class="copy" id="copyUpi">Copy</button></div>
+                        <div style="word-break:break-all" id="upiLinkText" class="pill"></div>
+                        <div style="margin-top:10px"><a id="upiLinkAnchor" class="btn-secondary" target="_blank" rel="noopener">Open in UPI App</a></div>
+                    </div>
+                </section>
+
+                <!-- UPI QR PANEL -->
+                <section class="bd" id="panel-qr" role="tabpanel" aria-labelledby="tab-qr" hidden>
+                    <div class="row">
+                        <div>
+                            <label for="merchantVpa">Merchant VPA (receiving)</label>
+                            <input id="merchantVpa" placeholder="electromart@icici" value="electromart@upi" />
+                        </div>
+                        <div>
+                            <label for="qrAmount">Amount (₹)</label>
+                            <input id="qrAmount" type="number" min="1" value="799" />
+                        </div>
+                    </div>
+                    <label for="qrNote">Note</label>
+                    <input id="qrNote" placeholder="Thanks for shopping!" />
+
+                    <div class="qr-wrap" style="margin-top:12px">
+                        <div class="qr-box">
+                            <div id="qrCode"></div>
+                        </div>
+                        <div>
+                            <div class="kv"><span class="muted">UPI URI</span> <button class="copy" id="copyQrUpi">Copy</button></div>
+                            <div id="qrUpiText" class="pill" style="word-break:break-all"></div>
+                            <div style="height:10px"></div>
+                            <button class="btn-secondary" id="regenQr">Generate / Refresh QR</button>
+                            <button class="btn-secondary" id="downloadQr">Download QR PNG</button>
+                        </div>
+                    </div>
+                    <div class="foot-note">Scan the QR with any UPI app (GPay, PhonePe, Paytm, BHIM, etc.).</div>
+                </section>
+
+                <!-- PHONE NUMBER PANEL -->
+                <section class="bd" id="panel-phone" role="tabpanel" aria-labelledby="tab-phone" hidden>
+                    <div class="row">
+                        <div>
+                            <label for="phone">Payer Phone Number</label>
+                            <input id="phone" placeholder="9876543210" maxlength="10" inputmode="numeric" />
+                        </div>
+                        <div>
+                            <label for="phoneAmount">Amount (₹)</label>
+                            <input id="phoneAmount" type="number" min="1" value="299" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div>
+                            <label for="handle">Handle</label>
+                            <select id="handle">
+                <option value="upi" selected>@upi (generic)</option>
+                <option value="ybl">@ybl (GPay)</option>
+                <option value="paytm">@paytm</option>
+                <option value="ibl">@ibl (PhonePe)</option>
+              </select>
+                        </div>
+                        <div style="display:flex; align-items:flex-end">
+                            <button class="btn" id="genPhoneUpi">Create Link </button>
+                        </div>
+                    </div>
+                    <div class="hr"></div>
+                    <div id="phoneResult" style="display:none">
+                        <div class="kv"><span class="muted">UPI Intent (phone-based VPA)</span> <button class="copy" id="copyPhone">Copy</button></div>
+                        <div id="phoneUpiText" class="pill" style="word-break:break-all"></div>
+                        <div style="margin-top:10px"><a id="phoneUpiAnchor" class="btn-secondary" target="_blank" rel="noopener">Open in UPI App</a></div>
+                        <div class="foot-note">Note: Using phone numbers as VPAs depends on the payer's UPI app/provider. Treat this as a demo.</div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right column: Order summary / totals -->
+            <div class="card">
+                <div class="hd"><strong>Order Summary</strong></div>
+                <div class="bd">
+                    <div class="kv"><span class="muted">Item</span> <span>ElectroMart Cart</span></div>
+                    <div class="kv"><span class="muted">Subtotal</span> <span id="sumSubtotal">₹100</span></div>
+                    <div class="kv"><span class="muted">Shipping</span> <span id="sumShipping">FREE</span></div>
+                    <div class="kv"><span class="muted">GST (18%)</span> <span id="sumTax">₹270</span></div>
+                    <div class="hr"></div>
+                    <div class="kv" style="font-size:18px; font-weight:800"><span>Total</span> <span id="sumTotal" class="price">₹1,769</span></div>
+                    <div class="hr"></div>
+                    <button class="btn-secondary" id="syncFromActive">Sync total from active tab amount</button>
+                    <div class="foot-note">This is a front‑end demo. No real payment occurs. Integrate your gateway SDK (Razorpay, Paytm, Stripe, Cashfree, PhonePe, etc.) to collect payments server‑side securely.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- QR Code lib -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        // ---------- Utils ----------
+        const fmtINR = new Intl.NumberFormat('en-IN', {
+            style: 'currency',
+            currency: 'INR',
+            maximumFractionDigits: 0
+        });
+        const byId = id => document.getElementById(id);
+        const show = el => el.style.display = '';
+        const hide = el => el.style.display = 'none';
+
+        function copyText(txt) {
+            navigator.clipboard.writeText(txt).then(() => {
+                const b = document.createElement('div');
+                b.textContent = 'Copied to clipboard';
+                b.className = 'success';
+                document.body.appendChild(b);
+                b.style.position = 'fixed';
+                b.style.right = '12px';
+                b.style.bottom = '12px';
+                b.style.display = 'block';
+                setTimeout(() => b.remove(), 1200);
+            });
+        }
+
+        // ---------- Tabs ----------
+        const tabs = [{
+            tab: 'tab-card',
+            panel: 'panel-card'
+        }, {
+            tab: 'tab-upi',
+            panel: 'panel-upi'
+        }, {
+            tab: 'tab-qr',
+            panel: 'panel-qr'
+        }, {
+            tab: 'tab-phone',
+            panel: 'panel-phone'
+        }, ];
+        tabs.forEach(({
+            tab,
+            panel
+        }) => {
+            const t = byId(tab),
+                p = byId(panel);
+            t.addEventListener('click', () => {
+                tabs.forEach(({
+                    tab: tt,
+                    panel: pp
+                }) => {
+                    byId(tt).setAttribute('aria-selected', tt === tab ? 'true' : 'false');
+                    const panelEl = byId(pp);
+                    if (pp === panel) panelEl.removeAttribute('hidden');
+                    else panelEl.setAttribute('hidden', '');
+                });
+            });
+        });
+
+        // ---------- Card helpers ----------
+        const cardNum = byId('cardNumber');
+        const cardExp = byId('cardExp');
+        const cardCvv = byId('cardCvv');
+
+        function formatCardNumber(v) {
+            return v.replace(/\D/g, '').slice(0, 16).replace(/(.{4})/g, '$1 ').trim();
+        }
+
+        function luhnValid(num) {
+            const arr = num.replace(/\s/g, '').split('').reverse().map(x => +x);
+            const sum = arr.reduce((acc, d, i) => acc + (i % 2 ? ((d *= 2) > 9 ? d - 9 : d) : d), 0);
+            return sum % 10 === 0;
+        }
+
+        function expValid(mmYY) {
+            const m = mmYY.match(/^(0[1-9]|1[0-2])\/(\d{2})$/);
+            if (!m) return false;
+            const mm = +m[1],
+                yy = +m[2];
+            const now = new Date();
+            const year = 2000 + yy;
+            const month = mm - 1; // JS months 0-11
+            const lastDay = new Date(year, month + 1, 0);
+            return lastDay >= new Date(now.getFullYear(), now.getMonth(), 1);
+        }
+
+        cardNum.addEventListener('input', e => {
+            e.target.value = formatCardNumber(e.target.value);
+            byId('visCardNum').textContent = e.target.value || '•••• •••• •••• ••••';
+        });
+        cardExp.addEventListener('input', e => {
+            let v = e.target.value.replace(/[^\d]/g, '').slice(0, 4);
+            if (v.length > 2) v = v.slice(0, 2) + '/' + v.slice(2);
+            e.target.value = v;
+            byId('visExp').textContent = v || 'MM/YY';
+        });
+        cardCvv.addEventListener('input', e => {
+            e.target.value = e.target.value.replace(/\D/g, '').slice(0, 4);
+            byId('visCvv').textContent = e.target.value.replace(/\d/g, '•') || '•••';
+        });
+
+        byId('payCard').addEventListener('click', () => {
+            hide(byId('cardSuccess'));
+            hide(byId('cardError'));
+            const name = byId('cardName').value.trim();
+            const email = byId('cardEmail').value.trim();
+            const num = cardNum.value.trim();
+            const exp = cardExp.value.trim();
+            const cvv = cardCvv.value.trim();
+            const amt = Math.max(1, +byId('cardAmount').value || 0);
+
+            const ok = name && /.+@.+\..+/.test(email) && luhnValid(num) && expValid(exp) && /\d{3,4}/.test(cvv);
+            if (!ok) {
+                show(byId('cardError'));
+                return;
+            }
+            // Simulate success
+            show(byId('cardSuccess'));
+            alert(`Demo only.\n\nAmount: ${fmtINR.format(amt)}\nCardholder: ${name}\nEmail: ${email}\n\nIntegrate payment gateway SDK on server for real payments.`);
+        });
+
+        // ---------- UPI ID ----------
+        function makeUpiUri({
+            pa,
+            pn,
+            am,
+            tn
+        }) {
+            const params = new URLSearchParams({
+                pa: pa,
+                pn: pn || 'ElectroMart',
+                am: (am || 0).toFixed(2),
+                cu: 'INR'
+            });
+            if (tn) params.set('tn', tn);
+            return `upi://pay?${params.toString()}`;
+        }
+
+        byId('genUpiLink').addEventListener('click', () => {
+            const vpa = byId('upiId').value.trim();
+            const amt = Math.max(1, +byId('upiAmount').value || 0);
+            const note = byId('upiNote').value.trim();
+            if (!/^[-\w.]+@[-\w.]+$/.test(vpa)) {
+                alert('Enter a valid UPI ID (e.g., name@bank)');
+                return;
+            }
+            const link = makeUpiUri({
+                pa: vpa,
+                am: amt,
+                tn: note,
+                pn: 'ElectroMart'
+            });
+            byId('upiLinkText').textContent = link;
+            const a = byId('upiLinkAnchor');
+            a.href = link;
+            a.textContent = 'Open UPI App';
+            show(byId('upiResult'));
+        });
+        byId('copyUpi').addEventListener('click', () => copyText(byId('upiLinkText').textContent));
+
+        // ---------- UPI QR ----------
+        let qr;
+
+        function regenQr() {
+            const vpa = byId('merchantVpa').value.trim();
+            const amt = Math.max(1, +byId('qrAmount').value || 0);
+            const note = byId('qrNote').value.trim();
+            if (!/^[-\w.]+@[-\w.]+$/.test(vpa)) {
+                alert('Enter a valid merchant VPA');
+                return;
+            }
+            const link = makeUpiUri({
+                pa: vpa,
+                am: amt,
+                tn: note,
+                pn: 'ElectroMart'
+            });
+            const box = byId('qrCode');
+            box.innerHTML = '';
+            qr = new QRCode(box, {
+                text: link,
+                width: 180,
+                height: 180
+            });
+            byId('qrUpiText').textContent = link;
+        }
+        byId('regenQr').addEventListener('click', regenQr);
+        byId('copyQrUpi').addEventListener('click', () => copyText(byId('qrUpiText').textContent));
+        byId('downloadQr').addEventListener('click', () => {
+            if (!qr) {
+                alert('Generate the QR first.');
+                return;
+            }
+            const img = byId('qrCode').querySelector('img') || byId('qrCode').querySelector('canvas');
+            const link = document.createElement('a');
+            link.download = 'upi-qr.png';
+            link.href = img.src ? img.src : img.toDataURL('image/png');
+            link.click();
+        });
+
+        // ---------- Phone number -> UPI (demo) ----------
+        byId('genPhoneUpi').addEventListener('click', () => {
+            const phone = byId('phone').value.replace(/\D/g, '').slice(0, 10);
+            const h = byId('handle').value;
+            const amt = Math.max(1, +byId('phoneAmount').value || 0);
+            if (phone.length !== 10) {
+                alert('Enter a valid 10‑digit Indian mobile number');
+                return;
+            }
+            const vpa = `${phone}${h}`; // demo assumption
+            const link = makeUpiUri({
+                pa: vpa,
+                am: amt,
+                pn: 'ElectroMart'
+            });
+            byId('phoneUpiText').textContent = link;
+            const a = byId('phoneUpiAnchor');
+            a.href = link;
+            a.textContent = 'Open UPI App';
+            show(byId('phoneResult'));
+        });
+        byId('copyPhone').addEventListener('click', () => copyText(byId('phoneUpiText').textContent));
+
+        // ---------- Summary sync ----------
+        function syncTotalFromActive() {
+            const active = document.querySelector('.tab[aria-selected="true"]').id;
+            let amt = 0;
+            if (active === 'tab-card') amt = Math.max(1, +byId('cardAmount').value || 0);
+            if (active === 'tab-upi') amt = Math.max(1, +byId('upiAmount').value || 0);
+            if (active === 'tab-qr') amt = Math.max(1, +byId('qrAmount').value || 0);
+            if (active === 'tab-phone') amt = Math.max(1, +byId('phoneAmount').value || 0);
+
+            // Basic mock: subtotal = amt, shipping RULE: free >= 1500 else 99, GST 18%
+            const shipping = amt >= 1500 ? 0 : 99;
+            const tax = Math.round((amt + shipping) * 0.18);
+            const total = amt + shipping + tax;
+
+            byId('sumSubtotal').textContent = fmtINR.format(amt);
+            byId('sumShipping').textContent = shipping ? fmtINR.format(shipping) : 'FREE';
+            byId('sumTax').textContent = fmtINR.format(tax);
+            byId('sumTotal').textContent = fmtINR.format(total);
+        }
+        byId('syncFromActive').addEventListener('click', syncTotalFromActive);
+
+        // Initialize defaults
+        regenQr();
+        syncTotalFromActive();
+    </script>
+</body>
+
+</html>

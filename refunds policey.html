@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ElectroMart — Returns & Refunds</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Inter, Arial, sans-serif;
+            background: #f9fafb;
+            color: #0f172a
+        }
+        
+        header {
+            background: #0ea5e9;
+            color: #fff;
+            padding: 16px;
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 22px
+        }
+        
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px
+        }
+        
+        h2 {
+            margin-top: 0;
+            color: #0ea5e9
+        }
+        
+        .card {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04)
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600
+        }
+        
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            font-size: 14px
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 90px
+        }
+        
+        .btn {
+            background: #0ea5e9;
+            color: #fff;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600
+        }
+        
+        .btn:hover {
+            background: #0284c7
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px
+        }
+        
+        .summary {
+            font-size: 14px;
+            color: #475569;
+            line-height: 1.5
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #64748b;
+            font-size: 14px
+        }
+        
+        @media(max-width:700px) {
+            .grid {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>ElectroMart — Returns & Refunds</h1>
+    </header>
+
+    <main>
+        <div class="card">
+            <h2>Return Request Form</h2>
+            <form onsubmit="submitReturn(event)">
+                <label for="orderId">Order ID</label>
+                <input type="text" id="orderId" placeholder="e.g. EM-10453" required>
+
+                <label for="reason">Reason for Return</label>
+                <select id="reason" required>
+          <option value="">Select reason</option>
+          <option>Damaged on arrival</option>
+          <option>Wrong item received</option>
+          <option>Not working / defective</option>
+          <option>Other</option>
+        </select>
+
+                <label for="details">Additional Details</label>
+                <textarea id="details" placeholder="Describe the issue"></textarea>
+
+                <label for="method">Preferred Refund Method</label>
+                <select id="method" required>
+          <option value="">Select method</option>
+          <option>Original Payment Method</option>
+          <option>Store Credit</option>
+          <option>Bank Transfer</option>
+        </select>
+
+                <button type="submit" class="btn">Submit Return Request</button>
+            </form>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h2>Return Policy</h2>
+                <p class="summary">
+                    • Items can be returned within <b>15 days</b> of delivery.<br> • Products must be unused and in original packaging.<br> • Refunds are processed within <b>7–10 business days</b> after approval.<br> • Shipping fees are non-refundable
+                    unless the return is due to ElectroMart error.
+                </p>
+            </div>
+
+            <div class="card">
+                <h2>Need Help?</h2>
+                <p class="summary">
+                    📞 Call: +91 6200482928<br> ✉️ Email: support@electromart.com<br> 💬 Live Chat available Mon–Sat, 9AM – 6PM
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        © <span id="year"></span> ElectroMart. All rights reserved.
+    </footer>
+
+    <script>
+        document.getElementById('year').innerText = new Date().getFullYear();
+
+        function submitReturn(e) {
+            e.preventDefault();
+            const id = document.getElementById('orderId').value;
+            const reason = document.getElementById('reason').value;
+            const method = document.getElementById('method').value;
+            alert(`Return Request Submitted:\nOrder: ${id}\nReason: ${reason}\nRefund Method: ${method}`);
+        }
+    </script>
+</body>
+
+</html>
